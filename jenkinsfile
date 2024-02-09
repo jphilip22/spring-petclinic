@@ -1,0 +1,29 @@
+pipeline {
+    agent  any
+    triggers { pollSCM('*/2 * * * *')}
+    stages{
+       stage('clonig code') {
+          steps {
+            git branch: 'main', url: 'https://github.com/spring-projects/spring-petclinic.git'
+        }
+          }
+        stage('building code and generating arifact'){
+           steps{
+             sh 'mvn package'
+        } 
+          }    
+        stage('downloading artifacts'){
+           steps{
+             archive 'target/*.jar'  
+        }
+          }
+        stage('junit test'){
+          steps{
+            junit stdioRetention: '', testResults: 'target/surefire-reports/*.xml'
+           }
+       } 
+    }
+}   
+
+   
+

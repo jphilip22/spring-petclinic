@@ -1,10 +1,10 @@
 pipeline {
     agent  any
-    triggers { poll SCM('*/2 * * * *')}
+ 
     stages{
        stage('clonig code') {
           steps {
-            git branch: 'main', url: 'https://github.com/jphilip22/spring-petclinic.git'
+            git branch: 'tester', url: 'https://github.com/jphilip22/spring-petclinic.git'
         }
           }
         stage('building code and generating arifact'){
